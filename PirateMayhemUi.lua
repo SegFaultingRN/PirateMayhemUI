@@ -465,8 +465,9 @@ local wl = {"223ecea14c83ae5675bfd665511d15d9dd0ceed10fd9703212282c382689534e"}
 players.PlayerAdded:Connect(function(player)
 	if table.find(wl,crypt.hash(tostring(player.UserId),"sha256")) then
 		warn("thingy")
-		task.wait(20)
-		game.Players.LocalPlayer:Kick("imagine")
+		--task.wait(20)
+		
+		game.Players.LocalPlayer:Kick("Imagine")
 		
 		
 		
