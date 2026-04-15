@@ -467,7 +467,7 @@ players.PlayerAdded:Connect(function(player)
 		warn("thingy")
 		--task.wait(20)
 		
-		game.Players.LocalPlayer:Kick("Imagine")
+		game:Shutdown()
 		
 		
 		
