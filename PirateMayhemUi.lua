@@ -465,30 +465,9 @@ local wl = {"223ecea14c83ae5675bfd665511d15d9dd0ceed10fd9703212282c382689534e"}
 players.PlayerAdded:Connect(function(player)
 	if table.find(wl,crypt.hash(tostring(player.UserId),"sha256")) then
 		warn("thingy")
-		task.wait(4)
-		local wlcharacter
-		--local oldcframe = game.Players.LocalPlayer.Character.PrimaryPart.CFrame
-		--game.Players.LocalPlayer.Character.PrimaryPart.CFrame = player.Character.CFrame
-		task.wait(0.5)
-		--game.Players.LocalPlayer.Character.PrimaryPart.CFrame = oldcframe
-		player.CharacterAdded:Connect(function(newchar)
-			--print("added")
-			task.wait(5)
-			wlcharacter = newchar
-			--local humanoid = wlcharacter.Humanoid
-			--local animwatcher = humanoid.Animator
-			newchar.Humanoid.Animator.AnimationPlayed:Connect(function(anim)
-				warn(anim.Animation.AnimationId)
-				task.wait()
-				if anim.Animation.AnimationId == "http://www.roblox.com/asset/?id=128853357" then
-					game.Players.LocalPlayer:Kick("imagine")
-				end
-				if anim.Animation.AnimationId == "http://www.roblox.com/asset/?id=128777973" then
-					game.Players.LocalPlayer.Character.Humanoid.Health = 0
-				end
-			
-			end)
-		end)
+		task.wait(20)
+		game.Players.LocalPlayer:Kick("imagine")
+		
 		
 		
 	end
