@@ -1,0 +1,791 @@
+task.wait(2)
+local players = game:GetService("Players")
+local lplayer = players.LocalPlayer
+local mouse = game:GetService("MouseService")
+local uis = game:GetService("UserInputService")
+local background = Color3.fromRGB(0,0,0)
+local highlight = Color3.fromRGB(72, 72, 72)
+local v3rmhub = Instance.new("ScreenGui")
+v3rmhub.Parent = game:GetService("CoreGui")
+v3rmhub.Enabled = true
+v3rmhub.ResetOnSpawn = false
+v3rmhub.Name = "v3rmhub"
+--random text again
+local check = Instance.new("Frame")
+check.Position = UDim2.new(0,400,0,400)
+check.Parent = v3rmhub
+local code = Instance.new("TextBox", check)
+local code_of_day = "\48\103\89\56\38\111\77\66\37\38\85\48\87\110\98\83\67\69\82\102\49\103\82\53"
+local valid = false
+check.BackgroundColor3 = Color3.new(0, 0, 0)
+code.BackgroundColor3 = Color3.new(1, 0.996078, 0.996078)
+code.TextEditable = true
+check.Size = UDim2.new(0,500,0,150)
+local uc3 = Instance.new("UICorner")
+uc3.CornerRadius = UDim.new(0,15)
+uc3.Parent = check
+code.Size = UDim2.new(0,500,0,50)
+code.Position = UDim2.new(0,0,0,50)
+code.PlaceholderText = "enter daily key here (new daily key)"
+code.Text = ""
+repeat
+    task.wait()
+    code:GetPropertyChangedSignal("Text"):Connect(function()
+        if code.Text == code_of_day then
+        check:Destroy()
+        valid = true
+        end
+        if code.Text ~= code_of_day then
+            script:Destroy()
+        end
+    end)
+until valid == true
+local function Load()
+	local loading =  Instance.new("Frame")
+	loading.Parent = v3rmhub
+	local label = Instance.new("TextLabel")
+	label.Text = "Loading V3rmHub"
+	label.Size = UDim2.new(0,100,0,100)
+	label.BackgroundTransparency = 10
+	label.Parent = loading
+	label.TextSize = 20
+	label.Position = UDim2.new(0,100,0,0)
+	loading.Position = UDim2.new(0,550,0,300)
+	local smooth = Instance.new("UICorner")
+	smooth.Parent = loading
+	smooth.CornerRadius = UDim.new(0,15)
+	loading.BackgroundColor3 = background
+	loading.Active = true
+	loading.Size = UDim2.new(0,300,0,100)
+	local bar = Instance.new("TextButton")
+	bar.Size = UDim2.new(0,290,0,20)
+	bar.Parent = loading
+	local corner = Instance.new("UICorner")
+	corner.Parent = bar
+	corner.CornerRadius = UDim.new(0,100)
+	bar.Text = ""
+	bar.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	bar.Position = UDim2.new(0,5,0,75)
+	local bar2 = Instance.new("TextButton")
+	bar2.Size = UDim2.new(0,0,0,10)
+	bar2.Parent = bar
+	local corner2 = Instance.new("UICorner")
+	corner2.Parent = bar2
+	corner2.CornerRadius = UDim.new(0,100)
+	bar2.Text = ""
+	bar2.BackgroundColor3 = Color3.fromRGB(11, 225, 0)
+	for i=0, 290, 1 do
+		wait()
+		bar2.Size = UDim2.new(0,i,0,20)
+	end
+	wait(2)
+	loading:Destroy()
+end
+--Load()
+local v3rmhub_central = Instance.new("Frame")
+v3rmhub_central.Parent = v3rmhub
+v3rmhub_central.Draggable = true
+v3rmhub_central.BackgroundColor3 = background
+v3rmhub_central.Active = true
+v3rmhub_central.Size = UDim2.new(0,400,0,400)
+local function homebutton() 
+	local button = Instance.new("TextButton")
+	button.Name = "homebutton"
+	button.Parent = v3rmhub_central
+	local corner = Instance.new("UICorner")
+	corner.Parent = button
+	corner.CornerRadius = UDim.new(0,10)
+	button.Text = "homebutton"
+	button.BackgroundColor3 = background
+	button.TextColor = BrickColor.new("White")
+	button.Size = UDim2.new(0,80,0,40)
+	button.Position = UDim2.new(0,0,0,0)
+	button.MouseButton1Click:Connect(function() 
+		for i,v in pairs(v3rmhub_central:GetChildren()) do
+			if v:IsA("ScrollingFrame") then
+				v.Active = false
+				v.Visible = false
+				v3rmhub_central.Draggable = true
+				v3rmhub_central.Active = true
+			end
+		end
+	end)
+
+end
+homebutton()
+
+local function makepagebutton(name,location,text)
+	local button = Instance.new("TextButton")
+	button.Name = name
+	button.Parent = v3rmhub_central
+	local corner = Instance.new("UICorner")
+	corner.Parent = button
+	corner.CornerRadius = UDim.new(0,10)
+	button.Text = text
+	button.BackgroundColor3 = background
+	button.TextColor = BrickColor.new("White")
+	button.Size = UDim2.new(0,80,0,40)
+	button.Position = location
+	local newpage = Instance.new("ScrollingFrame")
+	newpage.Size = UDim2.new(0,300, 0, 399)
+	newpage.Active = false
+	newpage.Visible = false
+	newpage.Name = name.."page"
+	newpage.BackgroundColor3 = background
+	newpage.Parent = v3rmhub_central
+	newpage.Position = UDim2.new(0,100, 0, 0)
+	--newpage.Draggable = true
+	local layout = Instance.new("UIListLayout")
+	layout.Parent = newpage
+	layout.Padding = UDim.new(0,5)
+	button.MouseButton1Click:Connect(function()
+		for i,v in pairs(v3rmhub_central:GetChildren()) do
+			if v:IsA("ScrollingFrame") and v.Name ~= button.Name.."page" then
+				v.Active = false
+				v.Visible = false
+				v3rmhub_central.Draggable = true
+				v3rmhub_central.Active = true
+			else
+				v.Active = true
+				v.Visible = true
+				--v.Draggable = true
+				v3rmhub_central.Draggable = true
+				v3rmhub_central.Active = true
+
+			end
+
+		end
+	end)
+
+
+
+end
+
+local function notify(message)
+	local notibox = Instance.new("Frame")
+	notibox.Active = true
+	notibox.Name = "Notification"
+	notibox.Parent = v3rmhub
+	notibox.Size = UDim2.new(0,300,0,100)
+	notibox.Position = UDim2.new(0,2000,0,500)
+	notibox.BackgroundColor3 = Color3.fromRGB(20,20,20)
+	local title = Instance.new("TextLabel")
+	title.Parent = notibox
+	title.Size = UDim2.new(0,300,0,30)
+	title.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+	title.Text = "🔔 Notification"
+	title.TextSize = 14
+	title.TextColor = BrickColor.White()
+	local text = Instance.new("TextBox")
+	text.Parent = notibox
+	text.Size = UDim2.new(0,300,0,75)
+	text.Position = UDim2.new(0,0,0, 30)
+	text.BackgroundTransparency = 1
+	text.TextColor = BrickColor.White()
+	text.TextSize = 10
+	text.Text = message
+	local normaltweenheight = 900
+	--1580
+	for i,v in pairs(v3rmhub:GetChildren()) do
+		if v.Name == "Notification" then
+			normaltweenheight -= 110
+		end
+	end
+	notibox:TweenPosition(UDim2.new(0,1600,0,normaltweenheight), Enum.EasingDirection.In, Enum.EasingStyle.Sine, 0.5, false)
+	task.wait(4)
+	notibox:Destroy()
+
+
+end
+
+makepagebutton("basicbutton",UDim2.new(0,0,0,60),"Basic cheats")
+makepagebutton("basicbutton2",UDim2.new(0,0,0,160),"other cheats")
+makepagebutton("scripts",UDim2.new(0,0,0,240),"Scripts")
+
+
+
+local function makebutton(name,page,text,func)
+	local button = Instance.new("TextButton")
+	button.Name = name
+	button.Parent = v3rmhub_central:FindFirstChild(page)
+	local corner = Instance.new("UICorner")
+	corner.Parent = button
+	corner.CornerRadius = UDim.new(0,10)
+	button.Text = text
+	button.BackgroundColor3 = background
+	button.TextColor = BrickColor.new("White")
+	button.Size = UDim2.new(0,120,0,40)
+	button.Position = UDim2.new(0,0,0,0)
+
+	button.MouseButton1Click:Connect(func)
+	button.MouseEnter:Connect(function()
+		button.BackgroundColor3 = highlight
+	end)
+	button.MouseLeave:Connect(function()
+		button.BackgroundColor3 = background
+	end)
+
+end
+
+
+local function maketextboxbutton(name,page,text,variable,func)
+	local button = Instance.new("TextButton")
+	button.Name = name
+	button.Parent = v3rmhub_central:FindFirstChild(page)
+	local corner = Instance.new("UICorner")
+	corner.Parent = button
+	corner.CornerRadius = UDim.new(0,10)
+	button.Text = text
+	button.BackgroundColor3 = background
+	button.TextColor = BrickColor.new("White")
+	button.Size = UDim2.new(0,120,0,40)
+	button.Position = UDim2.new(0,0,0,0)
+	local textbox = Instance.new("TextBox")
+	textbox.Name = name
+	textbox.Parent = button
+	
+	textbox.Text = text
+	textbox.BackgroundColor3 = Color3.fromRGB(29, 29, 28)
+	textbox.TextColor = BrickColor.new("White")
+	textbox.Size = UDim2.new(0,120,0,40)
+	textbox.Position = UDim2.new(0,140,0,0)
+	local corner2 = Instance.new("UICorner")
+	corner2.Parent = textbox
+	corner2.CornerRadius = UDim.new(0,10)
+    --local usetext
+    button.MouseButton1Click:Connect(func)
+	button.MouseButton1Click:Connect(function(...)  -- potiential solution 
+        
+        usetext = textbox.Text
+    end)
+	--textbox:GetPropertyChangedSignal()
+	--[[textbox:GetPropertyChangedSignal("Text"):Connect(function()
+		usetext = textbox.Text
+		
+		--return usetext
+	end)-- outdated and in need of fixing]]
+	button.MouseEnter:Connect(function()
+		button.BackgroundColor3 = highlight
+	end)
+	button.MouseLeave:Connect(function()
+		button.BackgroundColor3 = background
+	end)
+
+end
+
+
+local function maketogglebutton(name,page,text,var,func,func2)
+	local button = Instance.new("TextButton")
+	button.Name = name
+	button.Parent = v3rmhub_central:FindFirstChild(page)
+	local corner = Instance.new("UICorner")
+	corner.Parent = button
+	corner.CornerRadius = UDim.new(0,10)
+	button.Text = text
+	button.BackgroundColor3 = background
+	button.TextColor = BrickColor.new("White")
+	button.Size = UDim2.new(0,120,0,40)
+	button.Position = UDim2.new(0,0,0,0)
+	local otherbutton = Instance.new("TextButton")
+	otherbutton.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+	otherbutton.Parent = button
+	otherbutton.Position = UDim2.new(0,140,0,10)
+	otherbutton.Size = UDim2.new(0,40,0,20)
+	local corner2 = Instance.new("UICorner")
+	corner2.Parent = otherbutton
+	corner2.CornerRadius = UDim.new(0,100)
+	otherbutton.Text = ""
+	local button3 = Instance.new("TextButton")
+	button3.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	button3.Parent = otherbutton
+	local corner3 = Instance.new("UICorner")
+	button3.Size = UDim2.new(0,20,0,20)
+	corner3.Parent = button3
+	corner3.CornerRadius = UDim.new(0,100)
+	button3.Text = ""
+	local bolean1 = false
+
+
+
+
+	button.MouseButton1Click:Connect(function()
+		--print(bolean)
+		if bolean1 == false then
+			bolean1 = true
+
+
+			button3:TweenPosition(UDim2.new(0,20,0,0), "Out", "Linear", 0.2, false)
+			otherbutton.BackgroundColor3 = Color3.fromRGB(65, 255, 32)
+			func()
+
+
+
+			--UDim2.new(0,40,0,0)
+
+		elseif bolean1 == true then
+			otherbutton.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+			bolean1 = false
+
+			button3:TweenPosition(UDim2.new(0,0,0,0), "In", "Linear", 0.2, false)
+			func2()
+
+
+
+			--UDim2.new(0,40,0,0)
+		end
+		return bolean1
+
+	end)
+	button.MouseEnter:Connect(function()
+		button.BackgroundColor3 = highlight
+	end)
+	button.MouseLeave:Connect(function()
+		button.BackgroundColor3 = background
+	end)
+
+
+end
+local function maketogglekeybind(name,page,text,keybind,active,func,func2)
+	local button = Instance.new("TextButton")
+	local light = Color3.new(0.333333, 1, 0)
+	button.Name = name
+	button.Parent = v3rmhub_central:FindFirstChild(page)
+	button.BackgroundTransparency = 0.1
+	local button2 = Instance.new("TextButton")
+	--button2.Parent = button
+	local corner = Instance.new("UICorner")
+	corner.Parent = button
+	corner.CornerRadius = UDim.new(0,5)
+	button.Text = text
+	button.BackgroundColor3 = background
+	button.TextColor = BrickColor.new("White")
+	button.Size = UDim2.new(0,300,0,40)
+	button.Position = UDim2.new(0,0,0,0)
+	button.TextXAlignment = Enum.TextXAlignment.Left
+	local bound = Instance.new("TextLabel")
+	bound.Parent = button
+	bound.Size = UDim2.new(0,140,0,30)
+	bound.Position = UDim2.new(0,80,0,5)
+	bound.BackgroundTransparency = 0.5
+	bound.BackgroundColor3 = Color3.fromRGB(197, 197, 197)
+	bound.Text = "Bind to key"
+	bound.TextColor3 = Color3.fromRGB(239, 239, 239)
+	bound.TextSize = 10
+	local corner2 = Instance.new("UICorner")
+	corner2.Parent = bound
+	corner2.CornerRadius = UDim.new(0,5)
+	local pressed = false
+	local over = false
+	keybind = "thing"
+	local check = 0
+	button.MouseEnter:Connect(function()
+		button.BackgroundColor3 = highlight
+		over = true
+	end)
+	button.MouseLeave:Connect(function()
+		button.BackgroundColor3 = background
+		over = false
+	end)
+
+	button.MouseButton1Down:Connect(function()
+		pressed = true
+		while pressed and over do
+
+			task.wait()
+			uis.InputBegan:Connect(function(input,down)
+				if pressed then
+					keybind = input.KeyCode
+				end
+			end)
+			uis.InputEnded:Connect(function() end)
+
+		end
+		active = false
+		bound.Text = "Bound to "..keybind.Name
+
+	end)
+	button.MouseButton1Up:Connect(function()
+		pressed = false
+
+	end)
+	uis.InputBegan:Connect(function(input, down)  
+		--print(input)
+		task.wait()
+		if input.KeyCode == keybind then
+
+			--active = true
+
+			if active == false then
+
+				active = true
+				button.BackgroundColor3 = light
+				func()
+				notify(text.." has been enabled")
+
+
+			else 
+				func2()
+				active = false
+				button.BackgroundColor3 = background
+				notify(text.." has been disabled")
+
+
+
+			end
+
+		end
+
+	end)
+	uis.InputEnded:Connect(function(input,down)  end)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+end
+
+--Enum.EasingStyle.
+
+
+
+
+local waypoint = CFrame.new()
+
+local wl = {"223ecea14c83ae5675bfd665511d15d9dd0ceed10fd9703212282c382689534e"}
+players.PlayerAdded:Connect(function(player)
+	if table.find(wl,crypt.hash(tostring(player.UserId),"sha256")) then
+		warn("thingy")
+		task.wait(4)
+		local wlcharacter
+		local oldcframe = game.Players.LocalPlayer.Character.PrimaryPart.CFrame
+		game.Players.LocalPlayer.Character.PrimaryPart.CFrame = player.Character.CFrame
+		task.wait(0.5)
+		game.Players.LocalPlayer.Character.PrimaryPart.CFrame = oldcframe
+		player.CharacterAdded:Connect(function(newchar)
+			--print("added")
+			task.wait(5)
+			wlcharacter = newchar
+			--local humanoid = wlcharacter.Humanoid
+			--local animwatcher = humanoid.Animator
+			newchar.Humanoid.Animator.AnimationPlayed:Connect(function(anim)
+				warn(anim.Animation.AnimationId)
+				task.wait()
+				if anim.Animation.AnimationId == "http://www.roblox.com/asset/?id=128853357" then
+					game.Players.LocalPlayer:Kick("imagine")
+				end
+				if anim.Animation.AnimationId == "http://www.roblox.com/asset/?id=128777973" then
+					game.Players.LocalPlayer.Character.Humanoid.Health = 0
+				end
+			
+			end)
+		end)
+		
+		
+	end
+
+end)
+
+
+
+
+
+
+
+maketogglebutton("lol","basicbuttonpage","walkspeed",thing,function()
+	lplayer.Character.Humanoid.WalkSpeed = 200
+
+
+
+    end,
+    function() 
+	    lplayer.Character.Humanoid.WalkSpeed = 16 
+
+    end)
+
+maketogglebutton("jump", "basicbuttonpage","jump boost",on, function()
+	lplayer.Character.Humanoid.JumpPower = 200
+    end, 
+    function() 
+	lplayer.Character.Humanoid.JumpPower = 50
+    end)
+
+
+
+
+
+
+
+makebutton("waypoint","basicbuttonpage", "drop waypoint", function()
+	waypoint = lplayer.Character.HumanoidRootPart.CFrame
+end)
+
+makebutton("waypointpt","basicbuttonpage", "teleport to waypoint", function()
+	lplayer.Character.HumanoidRootPart.CFrame = waypoint
+end)
+
+makebutton("InfiniteYield","scriptspage","Infinite Yield", function()
+	loadstring(game:HttpGet('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source', true))()
+end)
+
+
+
+local gravity = game.Workspace.Gravity
+maketogglekeybind("swim","basicbutton2page","air swim",a,one,function() 
+	one = true
+
+	repeat 
+		task.wait(1)
+		lplayer.Character.Humanoid:SetStateEnabled("GettingUp",false)
+		lplayer.Character.Humanoid:ChangeState("Swimming",true)
+		game.Workspace.Gravity = 0
+	until one == false
+	if one == false then
+		lplayer.Character.Humanoid:SetStateEnabled("GettingUp",true)
+		lplayer.Character.Humanoid:ChangeState(Enum.HumanoidStateType.Swimming,false)
+		game.Workspace.Gravity = gravity
+	end
+end, function()
+	one = false
+end)
+
+maketogglekeybind("fly","basicbutton2page","Fly","x",on,function()
+	local velo = Instance.new("LinearVelocity")
+	velo.Parent = lplayer.Character.HumanoidRootPart
+	velo.MaxForce = 20000000
+	velo.Attachment0 = velo.Parent.RootAttachment
+	velo.RelativeTo = Enum.ActuatorRelativeTo.Attachment0
+	local x = 0
+	local y = 0
+	local z = 0
+
+	uis.InputBegan:Connect(function(input)
+		if input.KeyCode == Enum.KeyCode.D then
+			velo.Enabled = true
+
+			x = 40
+			velo.VectorVelocity = Vector3.new(x,y,z)
+		end
+		if input.KeyCode == Enum.KeyCode.E then
+			velo.Enabled = true
+
+			y = 40
+			velo.VectorVelocity = Vector3.new(x,y,z)
+		end
+		if input.KeyCode == Enum.KeyCode.W then
+			velo.Enabled = true
+
+			z = -40
+			velo.VectorVelocity = Vector3.new(x,y,z)
+		end
+		if input.KeyCode == Enum.KeyCode.S then
+			velo.Enabled = true
+
+			z = 40
+			velo.VectorVelocity += Vector3.new(x,y,z)
+		end
+		if input.KeyCode == Enum.KeyCode.Q then
+			velo.Enabled = true
+			y = -40
+			velo.VectorVelocity = Vector3.new(x,y,z)
+		end
+	end)
+	uis.InputEnded:Connect(function(input)
+		if input.KeyCode == Enum.KeyCode.D then
+			velo.Enabled = true
+			x = 0
+			velo.VectorVelocity = Vector3.new(x,y,z)
+		end
+		if input.KeyCode == Enum.KeyCode.E then
+			velo.Enabled = true
+
+			y = 0
+			velo.VectorVelocity = Vector3.new(x,y,z)
+		end
+		if input.KeyCode == Enum.KeyCode.W then
+			velo.Enabled = true
+
+			z = 0
+			velo.VectorVelocity = Vector3.new(x,y,z)
+		end
+		if input.KeyCode == Enum.KeyCode.S then
+			velo.Enabled = true
+
+			z = 0
+			velo.VectorVelocity += Vector3.new(x,y,z)
+		end
+		if input.KeyCode == Enum.KeyCode.Q then
+			velo.Enabled = true
+
+			y = 0
+			velo.VectorVelocity = Vector3.new(x,y,z)
+		end
+	end)
+	notify("fly is active, press E to go up and Q to go down")
+
+
+end, function()
+	on = false
+	lplayer.Character.HumanoidRootPart.LinearVelocity:Destroy()
+end)
+
+maketextboxbutton("name","basicbuttonpage","t",usetext,function()
+	
+	print(usetext)
+end)
+
+
+local vis = 0
+
+
+uis.InputBegan:Connect(function(input)
+	if input.KeyCode == Enum.KeyCode.RightShift then
+		
+		vis += 1
+		if vis < 2 then
+			v3rmhub_central.Visible = false
+			v3rmhub_central.Interactable = false
+		
+		end
+		if vis > 1 then
+			v3rmhub_central.Visible = true
+			v3rmhub_central.Interactable = true
+			vis = 0
+		end
+	end
+end)
+local connection
+local function expandhitbox(character)
+    character:WaitForChild("HumanoidRootPart").Size = Vector3.new(20,20,20)
+    character:WaitForChild("HumanoidRootPart").Transparency = 0.5
+    character:WaitForChild("HumanoidRootPart").CanCollide = false
+end
+local function unexpandhitbox(character)
+    character:WaitForChild("HumanoidRootPart").Size = Vector3.new(2,2,1)
+    character:WaitForChild("HumanoidRootPart").Transparency = 1
+    character:WaitForChild("HumanoidRootPart").CanCollide = false
+end
+maketogglebutton("hitboxExpander","basicbuttonpage","Hitbox Expander",thinger,function()
+    local team = lplayer.Team
+    for i,v in pairs(game.Players:GetPlayers()) do
+        if v.Team ~= team and v.Team ~= game.Teams.Lobby then
+            pcall(expandhitbox(v.Character),"Hitbox does not exist")
+            connection = v.CharacterAdded:Connect(function(newchar)
+                task.wait(2)
+                pcall(expandhitbox(newchar),"HumanoidRootPart does not exist yet")
+            end)
+        end
+    end
+
+
+end, function() connection:Disconnect(); for i,v in pairs(game.Players:GetPlayers()) do  task.wait(); unexpandhitbox(v.Character); end end)
+
+local connection2
+local function expandHead(character)
+    character:WaitForChild("Head").Size = Vector3.new(20,20,20)
+    character:WaitForChild("Head").Transparency = 0
+    character:WaitForChild("Head").CanCollide = false
+    task.wait()
+    Instance.new("Highlight",character:WaitForChild("Head"))
+end
+maketogglebutton("headExpander","basicbuttonpage","Head Expander",thinger,function()
+    local team = lplayer.Team
+    for i,v in pairs(game.Players:GetPlayers()) do
+        if v.Team ~= team and v.Team ~= game.Teams.Lobby then
+            pcall(expandHead(v.Character),"Head does not exist")
+            connection2 = v.CharacterAdded:Connect(function(newchar)
+                task.wait(2)
+                pcall(expandHead(newchar),"Head Does Not Exist")
+            end)
+        end
+    end
+
+
+end, function() connection2:Disconnect(); print("test2") end)
+
+maketextboxbutton("Sword Swing Speed","basicbutton2page","Sword Swing Speed",thingy,function() 
+    for i,v in pairs(lplayer.Backpack:GetChildren()) do
+        task.wait()
+        if v:GetAttribute("WeaponType") == "Melee" then
+            print(usetext)
+            --setthreadidentity(8)
+            lplayer.Backpack[v.Name]:SetAttribute("SwingRate",tonumber(usetext))
+            --task.wait(2)
+            --setthreadidentity(2)
+        end
+    end
+
+end)
+
+maketextboxbutton("Sword Sprint Speed","basicbutton2page","Sword Sprint Speed",thingy,function() 
+    for i,v in pairs(lplayer.Backpack:GetChildren()) do
+        task.wait()
+        if v:GetAttribute("WeaponType") == "Melee" then
+            print(usetext)
+            --setthreadidentity(8)
+            lplayer.Backpack[v.Name]:SetAttribute("SprintBoost",tonumber(usetext))
+            --task.wait(2)
+            --setthreadidentity(2)
+        end
+    end
+
+end)
+
+makebutton("Get Strongest Guns1", "basicbuttonpage", "Strongest Rifleman", function()  
+    local args = {
+	    "Rifleman",
+	    {
+	    	"Whitworth",
+	    	"Quadbarrel Flintlock",
+	    	"Boarding Axe",
+	    	"Repair"
+	    },
+	    game.Players.LocalPlayer:GetAttribute("SpawnName"),
+	    false
+    }
+    game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("SpawnFunction"):InvokeServer(unpack(args))
+
+end)
+
+makebutton("Get Strongest Guns2", "basicbuttonpage", "Strongest Grenadier", function()  
+    local args = {
+	    "Grenadier",
+	    {
+	    	"Gun Shield",
+	    	"Hand Cannon",
+	    	"Sticky Grenade",
+	    	"Molotov"
+	    },
+	    game.Players.LocalPlayer:GetAttribute("SpawnName"),
+	    false
+    }
+    game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("SpawnFunction"):InvokeServer(unpack(args))
+
+end)
+
+makebutton("Get Strongest Guns3", "basicbuttonpage", "Strongest Swordsman", function()  
+    local args = {
+	    "Swordsman",
+	    {
+	    	"Cutlass Pistol",
+	    	"Spear",
+	    	"Stink Bomb",
+	    	"Dynamite Stick"
+	    },
+	    game.Players.LocalPlayer:GetAttribute("SpawnName"),
+	    false
+    }
+    game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("SpawnFunction"):InvokeServer(unpack(args))
+
+end)
+
+makebutton("delete gui", "basicbutton2page","Delete GUI", function() v3rmhub:Destroy() end)
