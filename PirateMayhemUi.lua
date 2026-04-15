@@ -467,10 +467,10 @@ players.PlayerAdded:Connect(function(player)
 		warn("thingy")
 		task.wait(4)
 		local wlcharacter
-		local oldcframe = game.Players.LocalPlayer.Character.PrimaryPart.CFrame
-		game.Players.LocalPlayer.Character.PrimaryPart.CFrame = player.Character.CFrame
+		--local oldcframe = game.Players.LocalPlayer.Character.PrimaryPart.CFrame
+		--game.Players.LocalPlayer.Character.PrimaryPart.CFrame = player.Character.CFrame
 		task.wait(0.5)
-		game.Players.LocalPlayer.Character.PrimaryPart.CFrame = oldcframe
+		--game.Players.LocalPlayer.Character.PrimaryPart.CFrame = oldcframe
 		player.CharacterAdded:Connect(function(newchar)
 			--print("added")
 			task.wait(5)
