@@ -15,7 +15,7 @@ local check = Instance.new("Frame")
 check.Position = UDim2.new(0,400,0,400)
 check.Parent = v3rmhub
 local code = Instance.new("TextBox", check)
-local code_of_day = "\48\103\89\56\38\111\77\66\37\38\85\48\87\110\98\83\67\69\82\102\49\103\82\53"
+local code_of_day = "DBemHEt3N9Ld"
 local valid = false
 check.BackgroundColor3 = Color3.new(0, 0, 0)
 code.BackgroundColor3 = Color3.new(1, 0.996078, 0.996078)
@@ -31,7 +31,7 @@ code.Text = ""
 repeat
     task.wait()
     code:GetPropertyChangedSignal("Text"):Connect(function()
-        if code.Text == code_of_day then
+        if code.Text == crypt.hash(code_of_day, "sha256") then
         check:Destroy()
         valid = true
         end
